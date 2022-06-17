@@ -1,0 +1,18 @@
+menuconfig LIBNOSOURCE
+	bool "lib-nosource: A library for testing the unikraft build system"
+	default n
+
+if LIBNOSOURCE
+   config LIBNOSOURCE_C_SOURCE
+       bool "Provide C source"
+       default y
+
+   config LIBNOSOURCE_DTS_SOURCE
+       bool "Provide DTS source"
+       default n
+
+   config LIBNOSOURCE_OBJECT_FILE
+       bool "Provide prebuild object file"
+       default n
+endif
+

@@ -1,0 +1,15 @@
+# Library registration
+$(eval $(call addlib_s,libnosource,$(CONFIG_LIBNOSOURCE)))
+
+CINCLUDES-$(CONFIG_LIBNOSOURCE) += -I$(LIBNOSOURCE_BASE)
+LIBNOSOURCE_INCLUDE-$(CONFIG_LIBNOSOURCE_C_SOURCE) += $(LIBNOSOURCE_BASE)/source.c 
+LIBNOSOURCE_SRCS-$(CONFIG_LIBNOSOURCE_C_SOURCE) += $(LIBNOSOURCE_BASE)/source.c 
+LIBNOSOURCE_SRCS-$(CONFIG_LIBNOSOURCE_DTS_SOURCE) += $(LIBNOSOURCE_BASE)/devicetree.dts
+LIBNOSOURCE_OBJS-$(CONFIG_LIBNOSOURCE_OBJECT_FILE) += $(LIBNOSOURCE_BASE)/object.o 
+
+$(LIBNOSOURCE_BASE)/object.o:
+	if [ -e $(LIBNOSOURCE_BUILD)/source.o ]; then \
+		cp $(LIBNOSOURCE_BUILD)/source.o $(LIBNOSOURCE_BASE)/object.o; \
+		echo Copied object file into lib-nosource; \
+		else echo 'lib-nosource: could not copy object file, please build with "Provide C source" first.'; fi;
+
